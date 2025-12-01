@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <title>Sistema RH - Login</title>
+</head>
+
+<body>
+    <div class="login-box">
+        <h2>Acesso ao Sistema</h2>
+
+        <label for="cargo">Cargo:</label>
+        <select id="cargo">
+            <option value="gerente">Gerente</option>
+            <option value="funcionario">Funcionário</option>
+        </select>
+
+        <input type="email" id="email" placeholder="E-mail" required>
+        <input type="password" id="senha" placeholder="Senha" required>
+
+        <button onclick="login()">Entrar</button>
+        <p id="msgErro" class="erro"></p>
+    </div>
+
+    <script src="assets/js/script.js"></script>
+</body>
+
+</html>

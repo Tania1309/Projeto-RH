@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Painel RH - Gerente</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+    <header class="topbar">
+        <h2>Painel RH - Gerente</h2>
+        <button class="button-logout" onclick="logout()">Sair</button>
+    </header>
+
+    <section id="areaGerente" class="painel oculto">
+        <h3>Gerenciamento de Funcionários</h3>
+
+        <div class="card">
+            <h4>Cadastrar Funcionário</h4>
+            <input type="text" id="nomeFunc" placeholder="Nome" required>
+            <input type="email" id="emailFunc" placeholder="E-mail" required>
+            <select id="cargoFunc">
+                <option value="funcionario">Funcionário</option>
+                <option value="gerente">Gerente</option>
+            </select>
+            <input type="number" id="salarioFunc" placeholder="Salário" required>
+            <button onclick="cadastrarFuncionario()">Cadastrar</button>
+        </div>
+
+        <h4>Funcionários cadastrados:</h4>
+        <ul id="listaFuncionarios"></ul>
+
+        <hr>
+
+        <h3>Gerar Contra-Cheque</h3>
+        <input type="number" id="holeriteSalario" placeholder="Salário">
+        <button onclick="gerarHolerite()">Gerar Contra-Cheque</button>
+        <p id="resultadoHolerite"></p>
+    </section>
+
+    <script src="assets/js/script.js"></script>
+</body>
+
+</html>

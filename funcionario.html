@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <title>Painel RH - Funcionário</title>
+</head>
+
+<body>
+    <header class="topbar">
+        <h2>Painel RH - Funcionário</h2>
+        <button class="button-logout" onclick="logout()">Sair</button>
+    </header>
+
+    <section id="areaFuncionario" class="painel oculto">
+        <h3>Meus Dados</h3>
+
+        <label>Nome:</label>
+        <input type="text" id="meuNome">
+
+        <label>E-mail:</label>
+        <input type="email" id="meuEmail">
+
+        <label>Salário:</label>
+        <input type="number" id="meuSalario">
+
+        <button onclick="atualizarDadosFuncionario()">Atualizar Dados</button>
+        <button onclick="consultarDadosFuncionario()">Consultar Dados</button>
+    </section>
+
+    <script src="assets/js/script.js"></script>
+</body>
+
+</html>

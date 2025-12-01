@@ -1,0 +1,82 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f2f2f2;
+}
+
+.login-box {
+    width: 350px;
+    margin: 100px auto;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px #aaa;
+    text-align: center;
+}
+
+input, select, button {
+    width: 95%;
+    padding: 10px;
+    margin: 8px 0;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+button {
+    background: #0077cc;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #005fa3;
+}
+
+.topbar {
+    background: #0077cc;
+    color: white;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.button-logout {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.button-logout:hover {
+    background-color: #c70505;
+}
+
+.painel {
+    width: 80%;
+    background: white;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 8px #aaa;
+}
+
+.oculto {
+    display: none;
+}
+
+.card {
+    background: #eaeaea;
+    padding: 10px;
+    border-left: 4px solid #0077cc;
+    margin-bottom: 20px;
+}
+
+.erro {
+    color: red;
+    font-size: 14px;
+}
