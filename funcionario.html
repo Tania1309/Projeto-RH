@@ -17,14 +17,23 @@
     <section id="areaFuncionario" class="painel oculto">
         <h3>Meus Dados</h3>
 
+        <label>Usuário:</label>
+        <input type="text" id="meuId" maxlength="10">
+
         <label>Nome:</label>
-        <input type="text" id="meuNome">
+        <input type="text" id="meuNome" maxlength="50">
 
-        <label>E-mail:</label>
-        <input type="email" id="meuEmail">
+        <label>Data de Nacimento:</label>
+        <input type="date" id="data">
 
-        <label>Salário:</label>
-        <input type="number" id="meuSalario">
+        <label>Número:</label>
+        <input type="tel" id="tel" maxlength="11">
+
+        <label>Endereço:</label>
+        <input type="text" id="endereco" maxlength="50">
+
+        <label>Cargo:</label>
+        <input type="text" id="cargo" maxlength="30">
 
         <button onclick="atualizarDadosFuncionario()">Atualizar Dados</button>
         <button onclick="consultarDadosFuncionario()">Consultar Dados</button>

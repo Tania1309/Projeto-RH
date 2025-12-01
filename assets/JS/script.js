@@ -50,16 +50,34 @@ function cadastrarFuncionario() {
     const cargoFunc = document.getElementById("cargoFunc").value;
     const salario = parseFloat(document.getElementById("salarioFunc").value);
 
-    if (!nome || !email || !salario || !cargoFunc) {
+    if (!nome || !email || !cargoFunc || !salario) {
         alert("Preencha todos os campos corretamente!");
         return;
     }
 
     let funcionarios = JSON.parse(localStorage.getItem("funcionarios")) || [];
 
-    funcionarios.push({ nome, email, cargo: cargoFunc, salario });
+    // Prevenir emails duplicados
+    if (funcionarios.some(f => f.email === email)) {
+        alert("Funcionário já cadastrado com esse email!");
+        return;
+    }
+
+    // Cria funcionário com todos os campos necessários
+    funcionarios.push({
+        nome,
+        email,
+        usuario: "",
+        telefone: "",
+        data: "",
+        endereco: "",
+        cargo: cargoFunc,
+        salario
+    });
+
     localStorage.setItem("funcionarios", JSON.stringify(funcionarios));
 
+    alert("Funcionário cadastrado com sucesso!");
     carregarFuncionarios();
 }
 
@@ -68,6 +86,12 @@ function carregarFuncionarios() {
     const funcionarios = JSON.parse(localStorage.getItem("funcionarios")) || [];
 
     lista.innerHTML = "";
+
+    if (funcionarios.length === 0) {
+        lista.innerHTML = "<li>Nenhum funcionário cadastrado.</li>";
+        return;
+    }
+
     funcionarios.forEach(f => {
         const li = document.createElement("li");
         li.textContent = `${f.nome} — ${f.email} — ${f.cargo} — R$ ${f.salario.toFixed(2)}`;
@@ -80,11 +104,17 @@ function carregarMeusDados(email) {
     const funcionarios = JSON.parse(localStorage.getItem("funcionarios")) || [];
     const usuario = funcionarios.find(f => f.email === email);
 
-    if (!usuario) return;
+    if (!usuario) {
+        alert("Funcionário não encontrado!");
+        return;
+    }
 
     document.getElementById("meuNome").value = usuario.nome;
-    document.getElementById("meuEmail").value = usuario.email;
-    document.getElementById("meuSalario").value = usuario.salario;
+    document.getElementById("meuId").value = usuario.usuario;
+    document.getElementById("data").value = usuario.data;
+    document.getElementById("tel").value = usuario.telefone;
+    document.getElementById("endereco").value = usuario.endereco;
+    document.getElementById("cargo").value = usuario.cargo;
 }
 
 function atualizarDadosFuncionario() {
@@ -94,17 +124,25 @@ function atualizarDadosFuncionario() {
     const index = funcionarios.findIndex(f => f.email === emailOriginal);
     if (index === -1) return alert("Funcionário não encontrado!");
 
-    funcionarios[index].nome = document.getElementById("meuNome").value;
-    funcionarios[index].email = document.getElementById("meuEmail").value;
-    funcionarios[index].salario = parseFloat(document.getElementById("meuSalario").value);
+    // Validação simples
+    const nome = document.getElementById("meuNome").value.trim();
+    if (!nome) return alert("O nome não pode estar vazio!");
+
+    funcionarios[index].nome = nome;
+    funcionarios[index].usuario = document.getElementById("meuId").value.trim();
+    funcionarios[index].data = document.getElementById("data").value;
+    funcionarios[index].telefone = document.getElementById("tel").value.trim();
+    funcionarios[index].endereco = document.getElementById("endereco").value.trim();
+    funcionarios[index].cargo = document.getElementById("cargo").value.trim();
 
     localStorage.setItem("funcionarios", JSON.stringify(funcionarios));
     alert("Dados atualizados com sucesso!");
 }
 
 function consultarDadosFuncionario() {
-    const email = JSON.parse(localStorage.getItem("usuarioLogado")).email;
-    carregarMeusDados(email);
+    const usuario = JSON.parse(localStorage.getItem("usuarioLogado"));
+    if (!usuario) return alert("Usuário não logado!");
+    carregarMeusDados(usuario.email);
 }
 
 // ---------------- HOLERITE ---------------- //
