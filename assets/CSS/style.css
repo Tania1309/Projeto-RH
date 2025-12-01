@@ -14,7 +14,9 @@ body {
     text-align: center;
 }
 
-input, select, button {
+input,
+select,
+button {
     width: 95%;
     padding: 10px;
     margin: 8px 0;
@@ -23,6 +25,7 @@ input, select, button {
 }
 
 button {
+    width: 97%;
     background: #0077cc;
     color: white;
     border: none;
@@ -44,10 +47,11 @@ button:hover {
 }
 
 .button-logout {
+    width: 100px;
     background-color: red;
     color: white;
     border: none;
-    padding: 8px 12px;
+    padding: 10px;
     border-radius: 8px;
     cursor: pointer;
 }
@@ -63,6 +67,11 @@ button:hover {
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 8px #aaa;
+}
+
+#cargoFunc {
+    width: 97%;
+    padding: 10px;
 }
 
 .oculto {
