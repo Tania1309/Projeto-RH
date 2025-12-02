@@ -1,3 +1,4 @@
+html,
 body {
     margin: 0;
     font-family: Arial, sans-serif;
@@ -33,6 +34,11 @@ button {
     transition: 0.3s;
 }
 
+.cargo2 {
+    width: 100%;
+    padding: 10px;
+}
+
 button:hover {
     background: #005fa3;
 }
@@ -63,7 +69,8 @@ button:hover {
 .painel {
     width: 80%;
     background: white;
-    margin: 20px auto;
+    margin: auto;
+    margin-top: 50px;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 8px #aaa;
@@ -88,4 +95,9 @@ button:hover {
 .erro {
     color: red;
     font-size: 14px;
+}
+#resultadoHolerite{
+    display: inline-block;
+    text-align: justify;
+    padding: 10px;
 }

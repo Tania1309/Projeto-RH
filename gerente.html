@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Painel RH - Gerente</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
@@ -21,7 +22,7 @@
             <input type="text" id="nomeFunc" placeholder="Nome" required>
             <input type="email" id="emailFunc" placeholder="E-mail" required>
             <select id="cargoFunc">
-                 <option value="">Selecione...</option>
+                <option value="">Selecione...</option>
                 <option value="funcionario">Funcionário</option>
                 <option value="gerente">Gerente</option>
                 <option value="outro">Outro</option>
@@ -36,9 +37,13 @@
         <hr>
 
         <h3>Gerar Contra-Cheque</h3>
-        <input type="number" id="holeriteSalario" placeholder="Salário">
-        <button onclick="gerarHolerite()">Gerar Contra-Cheque</button>
-        <p id="resultadoHolerite"></p>
+        <input id="holeriteNome" type="text" placeholder="Nome do Funcionário">
+        <input id="holeriteCargo" type="text" placeholder="Cargo">
+        <input id="holeriteSalario" type="number" placeholder="Salário">
+
+        <button onclick="gerarHolerite()">Contra-Cheque</button>
+
+        <div id="resultadoHolerite"></div>
     </section>
 
     <script src="assets/js/script.js"></script>
