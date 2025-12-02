@@ -168,9 +168,8 @@ function gerarHolerite() {
         return alert("Preencha todos os campos corretamente!");
     }
 
-    //---------------- Verifica cadastro ----------------
+    // ---------- Verifica se existe o funcionário ----------
     const funcionarios = JSON.parse(localStorage.getItem("funcionarios")) || [];
-
     const funcionario = funcionarios.find(f =>
         f.nome.toLowerCase() === nome.toLowerCase() &&
         f.cargo.toLowerCase() === cargo.toLowerCase()
@@ -180,29 +179,74 @@ function gerarHolerite() {
         alert("Funcionário não cadastrado! Não é possível gerar contra-cheque.");
         return;
     }
-    // ---------------- INSS (11%)----------------
-    const inss = salario * 0.11;
 
-    // ---------------- Imposto de Renda ( 7.5%)----------------
+    // ---------- INSS (Tabela 2024 – Progressivo) ----------
+    function calcularINSS(salario) {
+        let total = 0;
 
-    const ir = salario * 0.075;
+        const faixas = [
+            { limite: 1412.00, aliquota: 0.075 },
+            { limite: 2666.68, aliquota: 0.09 },
+            { limite: 4000.03, aliquota: 0.12 },
+            { limite: 7786.02, aliquota: 0.14 }
+        ];
 
-    // ---------------- Vale transporte (6% do salário)----------------
+        let restante = salario;
+        let inicioFaixa = 0;
 
+        for (let f of faixas) {
+            if (salario > inicioFaixa) {
+                let baseFaixa = Math.min(restante, f.limite - inicioFaixa);
+                total += baseFaixa * f.aliquota;
+                restante -= baseFaixa;
+            }
+            inicioFaixa = f.limite;
+        }
+
+        return total;
+    }
+
+    // ---------- Imposto de Renda (Atualizado 2024-2025) ----------
+    function calcularIRRF(salario, inss) {
+        const base = salario - inss; // base real do IRRF
+        let aliquota = 0;
+        let deducao = 0;
+
+        if (base <= 2259.20) {
+            aliquota = 0; deducao = 0;
+        }
+        else if (base <= 2826.65) {
+            aliquota = 0.075; deducao = 169.44;
+        }
+        else if (base <= 3751.05) {
+            aliquota = 0.15; deducao = 381.44;
+        }
+        else if (base <= 4664.68) {
+            aliquota = 0.225; deducao = 662.77;
+        }
+        else {
+            aliquota = 0.275; deducao = 896.00;
+        }
+
+        const imposto = base * aliquota - deducao;
+        return imposto > 0 ? imposto : 0;
+    }
+
+    // ---------- Calcula tudo ----------
+    const inss = calcularINSS(salario);
+    const ir = calcularIRRF(salario, inss);
     const valeTransporte = salario * 0.06;
-
-    // ---------------- Salário Líquido ----------------
     const salarioLiquido = salario - inss - ir - valeTransporte;
 
-    // ---------------- Exibição ----------------
+    // ---------- Exibir ----------
     document.getElementById("resultadoHolerite").innerHTML = `
         <strong>Contra-Cheque Gerado:</strong><br><br>
         <strong>Nome:</strong> ${nome}<br><br>
         <strong>Cargo:</strong> ${cargo}<br><br>
         <strong>Salário Bruto:</strong> R$ ${salario.toFixed(2)}<br><br>
-        <strong>INSS (11%):</strong> R$ ${inss.toFixed(2)}<br><br>
-        <strong>Imposto de Renda (7,5%):</strong> R$ ${ir.toFixed(2)}<br><br>
-       <strong>Vale Transporte (6%):</strong> R$ ${valeTransporte.toFixed(2)}<br><br>
-        <strong>Salário Líquido: R$ ${salarioLiquido.toFixed(2)}</strong>
+        <strong>INSS (Progressivo):</strong> R$ ${inss.toFixed(2)}<br><br>
+        <strong>Imposto de Renda:</strong> R$ ${ir.toFixed(2)}<br><br>
+        <strong>Vale Transporte (6%):</strong> R$ ${valeTransporte.toFixed(2)}<br><br>
+        <strong>Salário Líquido:</strong> R$ ${salarioLiquido.toFixed(2)}
     `;
 }
