@@ -208,7 +208,13 @@ function gerarHolerite() {
 
     // ---------- Imposto de Renda (Atualizado 2024-2025) ----------
     function calcularIRRF(salario, inss) {
-        const base = salario - inss; // base real do IRRF
+        const baseNormal = salario - inss;
+        // Desconto fixo de 528
+        const baseSimplificada = salario - 528;
+
+        // Escolher a menor das duas bases
+        const base = Math.min(baseNormal, baseSimplificada);
+
         let aliquota = 0;
         let deducao = 0;
 
